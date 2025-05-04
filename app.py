@@ -1,4 +1,5 @@
-import base64
+import os
+from dotenv import load_dotenv
 import gspread
 import smtplib
 from email.message import EmailMessage
@@ -6,10 +7,20 @@ from oauth2client.service_account import ServiceAccountCredentials
 import qrcode
 from PIL import Image
 import time
-import os
 from googleapiclient.discovery import build
 from googleapiclient.http import MediaFileUpload
 from email.utils import make_msgid
+
+# Load environment variables from .env file
+load_dotenv()
+
+# Fetch environment variables
+sender_email = os.getenv('EMAIL_ADDRESS')
+sender_password = os.getenv('EMAIL_PASSWORD')
+smtp_server = os.getenv('SMTP_SERVER')
+smtp_port = int(os.getenv('SMTP_PORT', 587))  # Default to 587 if not set
+google_sheet_url = os.getenv('GOOGLE_SHEET_URL')
+qr_code_dir = os.getenv('QR_CODE_DIR', 'qr_codes')  # Default to 'qr_codes' if not set
 
 # Define the scope of access
 scope = [
@@ -24,8 +35,8 @@ client = gspread.authorize(creds)
 # Build the Drive service
 drive_service = build('drive', 'v3', credentials=creds)
 
-# Open your Google Sheet (use the Sheet's name or URL)
-sheet = client.open_by_url('https://docs.google.com/spreadsheets/d/1WTeXSPpqjMqkQzuhJVr70H38ctQJcK-fqn1gwwQwDwc/edit').sheet1
+# Open your Google Sheet (use the Sheet's URL from environment variable)
+sheet = client.open_by_url(google_sheet_url).sheet1
 
 # Define the column number for Unique ID (Column 10)
 unique_id_col = 10
@@ -62,19 +73,14 @@ for i in range(2, len(all_values) + 1):
 
         # Generate QR code
         qr = qrcode.make(qr_data)
-        qr_filename = f"qr_codes/{new_uid}_qr.png"
+        qr_filename = os.path.join(qr_code_dir, f"{new_uid}_qr.png")
         qr.save(qr_filename)
-
-        # Email details
-        sender_email = "tvacc012345@gmail.com"
-        sender_password = "kddf ydhn vtzc upjo"
-        receiver_email = email
 
         # Create email message
         msg = EmailMessage()
         msg['Subject'] = "Ignite Event Registration Confirmation"
         msg['From'] = sender_email
-        msg['To'] = receiver_email
+        msg['To'] = email
 
         # Generate a Content-ID for the image
         image_cid = make_msgid(domain='xyz.com')  # you can leave domain=None too
@@ -106,10 +112,9 @@ for i in range(2, len(all_values) + 1):
         os.remove(qr_filename)
 
         # Send via SMTP
-        with smtplib.SMTP('smtp.gmail.com', 587) as smtp:
+        with smtplib.SMTP(smtp_server, smtp_port) as smtp:
             smtp.starttls()
             smtp.login(sender_email, sender_password)
             smtp.send_message(msg)
 
         print(f"✅ Email sent successfully to {email} with embedded QR code!")
-print("✅ Script ran successfully!")
