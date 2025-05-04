@@ -22,6 +22,10 @@ smtp_port = int(os.getenv('SMTP_PORT', 587))  # Default to 587 if not set
 google_sheet_url = os.getenv('GOOGLE_SHEET_URL')
 qr_code_dir = os.getenv('QR_CODE_DIR', 'qr_codes')  # Default to 'qr_codes' if not set
 
+# Create the 'qr_codes' directory if it doesn't exist
+if not os.path.exists('qr_codes'):
+    os.makedirs('qr_codes')
+
 # Define the scope of access
 scope = [
     "https://www.googleapis.com/auth/spreadsheets",
@@ -118,3 +122,4 @@ for i in range(2, len(all_values) + 1):
             smtp.send_message(msg)
 
         print(f"✅ Email sent successfully to {email} with embedded QR code!")
+print("All emails sent successfully!")

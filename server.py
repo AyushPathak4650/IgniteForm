@@ -7,11 +7,17 @@ app = Flask(__name__)
 @app.route('/run-script', methods=['POST'])
 def run_script():
     try:
-        # Running the script using the system Python interpreter
-        subprocess.run(["python", "app.py"], check=True)
-        return "Script executed successfully", 200
+        # Capture stdout and stderr
+        result = subprocess.run(
+            ["python", "app.py"],
+            check=True,
+            text=True,
+            capture_output=True
+        )
+        return f"Script executed successfully: {result.stdout}", 200
     except subprocess.CalledProcessError as e:
-        return f"Error occurred: {str(e)}", 500
+        # Log the error output
+        return f"Error occurred: {e.stderr}", 500
 
 if __name__ == '__main__':
     # If you deploy on Render, it will use the correct WSGI setup
