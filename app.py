@@ -15,16 +15,16 @@ from email.utils import make_msgid
 load_dotenv()
 
 # Fetch environment variables
-sender_email = os.getenv('EMAIL_ADDRESS')
-sender_password = os.getenv('EMAIL_PASSWORD')
-smtp_server = os.getenv('SMTP_SERVER')
+sender_email = os.getenv('EMAIL_ADDRESS')  # Brevo login email
+sender_password = os.getenv('EMAIL_PASSWORD')  # Brevo SMTP password
+smtp_server = os.getenv('SMTP_SERVER', 'smtp-relay.brevo.com')
 smtp_port = int(os.getenv('SMTP_PORT', 587))  # Default to 587 if not set
 google_sheet_url = os.getenv('GOOGLE_SHEET_URL')
 qr_code_dir = os.getenv('QR_CODE_DIR', 'qr_codes')  # Default to 'qr_codes' if not set
 
 # Create the 'qr_codes' directory if it doesn't exist
-if not os.path.exists('qr_codes'):
-    os.makedirs('qr_codes')
+if not os.path.exists(qr_code_dir):
+    os.makedirs(qr_code_dir)
 
 # Define the scope of access
 scope = [
@@ -83,11 +83,11 @@ for i in range(2, len(all_values) + 1):
         # Create email message
         msg = EmailMessage()
         msg['Subject'] = "Ignite Event Registration Confirmation"
-        msg['From'] = sender_email
+        msg['From'] = "noreply@ignitefare.tech"  # Updated sender email
         msg['To'] = email
 
         # Generate a Content-ID for the image
-        image_cid = make_msgid(domain='xyz.com')  # you can leave domain=None too
+        image_cid = make_msgid(domain='ignitefare.tech')  # You can leave domain=None too
         image_cid_clean = image_cid[1:-1]  # Remove < >
 
         # HTML Email body with image via CID
