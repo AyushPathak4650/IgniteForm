@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "igniteform-project",
+  "private_key_id": "f1dc7b47f1e092dfc7583a5914bd5d12cd518b69",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQC02MbvLmqK+EZJ\nbV6MSr8M73dtEG0MVaNCOtcmr0f6jhrR9IKEDAKFlm0yOq91zNI8Rxm2FSGSWOWM\nhMWxl0DqERXe4JxljszqS8DsoXAw+8SfUCPUn182f9jDlZzYaFQpo0Ri+mYdPl8i\nPxYTxZQpkEYbzQod7zfDt50wpsiUCTf1NfgtGemu+7xqKu/9xHO5EPxaUhFowp/c\nC12YbLFQ7rnMurHEaBIGA72927bl/lL80XHsr+MJCe79OgNoZT+e2U2UKZVMLOEX\nOqL6DdItc86jKJPuSzxc5NoZDhkqIOCCoM8fmbC6IG7Rfy9jxC7Ad0R58GbPtlgG\nCRiAwA0BAgMBAAECggEAKC413PSCJYhODYhoRmFhG12lOi05HVF1qYRrQyQUqP2j\nxdw+l1oXwViPwGY7j7/HQi9F7ie5wstPjS3+wptph9ft9QwQk5vruW7FWY3w4GE/\n6Wmj3FzgibpUDfiS1Z4wfOPSkO8zevHdrz03CYOPjMCKYyjmQ4pf6HNGUIXt8L3P\nWQKclmxwQkMynM6KmoDbn4/sphRSeb6Y1PwJXhhlHzHxnmaUTNrUsrOGZ2g98AFp\nC7Gw9hRl4YGxR4G2qP96PkPX5cmgYHP/RfVQGxoT+UA9gTQ320xP/5hVUHaRGg7S\nOV0HOrvph89AIkZTSaaz59Y28bZ1rkJXLjx6l74BxQKBgQDxkMuRwnBN3Ev8gCGl\noszaIrjgM+B6Cn2M14i0eE9Zm3s5HzMuAM0z+JNjkDuFOx1e2g0hXdQmB4kWa7DI\nTqrLhCRw9m3yFlXAhEHvFS4UXNXjRuvmHw0/r6RcFcW5sY3Bvx/IJR89q0NW0d63\nZISn7K/UfF1MWOqeKKFN+GykVwKBgQC/pywU7VfclHDmJzvYx6noBvo0e4ULPqzU\nFZEEr6JbtPmvixWTfduk+XrzrlORrJP28mxTqAdAo1iJOJNETPCic/J7JwPyOAgL\nALP+hNwZz8TrNjs3+KAVv8tVKF0S29Js1q5A16W/UAqBywQJ8GjnLi31FOFVNTMv\nCJLDO4DCZwKBgE3PbCMZVH9f9IHy6+OkmwOwp4hgbXAiLOrPClPHZRfiA0EVEbFB\nxNd2vFMXxHRX5FAHQK98v7c4Oiokqh77Z/yCJhLU7flKxHhsoahXVC5u8N5ym83W\nNrhK5VBcGwKDdLvxylT30CZXIiu3ElxUXn6QuNpi7NKI2Zn0UHEDEkulAoGANK6g\naHRBpanMSwfX5KQl6VkZqBmYHdoxqe7vuSkKaUkbJY0G9k8vdG77xEZURIP6/HPx\nISHcNIFyUe4SVUENGKrkqcO0yv1qAJRF5h3hXtsFF18F8kHOx4u8OgFpbEiu1CpD\nJiHhNvCqorkKuCy0uW+xRGBj/IcuNayWo0IVB9sCgYB2YbaWYjJEc3SJ2p+LBYuh\nOy9tNTJTEaIYG8xu9Ll90R0YrF6xuTUI8jOnm5U7Ki860EoknMNriSiWQ9H7YeNa\nMCNKf6tEXgTgly1OP0atXBgSgpLuuOLL0X7rkvRtotKtt4aR4w56rTIYzOQGXSgn\nS9bdw5Jueq85qITgreT6hQ==\n-----END PRIVATE KEY-----\n",
+  "client_email": "igniteform-service-account@igniteform-project.iam.gserviceaccount.com",
+  "client_id": "117604605241212880250",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/igniteform-service-account%40igniteform-project.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
