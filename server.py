@@ -3,12 +3,16 @@ import subprocess
 
 app = Flask(__name__)
 
-
+# Define the route to trigger your script
 @app.route('/run-script', methods=['POST'])
 def run_script():
-    # Use the correct virtual environment's Python interpreter
-    subprocess.run(["D:\\AYUSH_BACKUPFILES\\OneDrive\\Documents\\VS Code\\git\\Ignite_Project\\.venv\\Scripts\\python.exe", "app.py"])
-    return "Script executed successfully", 200
+    try:
+        # Running the script using the system Python interpreter
+        subprocess.run(["python", "app.py"], check=True)
+        return "Script executed successfully", 200
+    except subprocess.CalledProcessError as e:
+        return f"Error occurred: {str(e)}", 500
 
 if __name__ == '__main__':
+    # If you deploy on Render, it will use the correct WSGI setup
     app.run(host='0.0.0.0', port=5000)
