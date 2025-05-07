@@ -13,6 +13,7 @@ import re
 load_dotenv()
 
 # Fetch environment variables
+college_email = os.getenv('COLLEGE_EMAIL')
 sender_login = os.getenv('SMTP_LOGIN')
 sender_email = os.getenv('SENDER_EMAIL')
 sender_password = os.getenv('SMTP_PASSWORD')
@@ -80,27 +81,52 @@ for i in range(2, len(all_values) + 1):
         qr_filename = os.path.join(qr_code_dir, f"{new_uid}_qr.png")
         qr.save(qr_filename)
 
+         
+        
+        
         # Create email message
         msg = EmailMessage()
-        msg['Subject'] = "Ignite Event Registration Confirmation"
-        msg['From'] = f"Ignite Event <{sender_login}>"
+        # College mmail
+        msg['Reply-To'] = college_email
+        # msg['Bcc'] = college_email
+        # Sender and recipient
+        msg['Subject'] = "Ignited Event Registration Confirmation"
+        msg['From'] = f"Ignited Event <{sender_login}>"
         msg['To'] = email
 
         image_cid = make_msgid(domain='ignitefare.tech')[1:-1]
 
         html_body = f"""
-        <html>
-            <body>
-                <h3>Hello {name},</h3>
-                <p>You are successfully registered for Ignite!</p>
-                <p><strong>Your Unique ID:</strong> {new_uid}</p>
-                <p>Your QR code is below — please keep it safe and show it at the event entry.</p>
-                <p><img src="cid:{image_cid}" alt="QR Code" style="width:200px;height:200px;"/></p>
-                <br>
-                <p>Regards,<br>Ignite Team</p>
-            </body>
-        </html>
-        """
+                    <html>
+                    <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; padding: 15px; color: #333;">
+                        <div style="width: 100%; max-width: 620px; margin: auto; background-color: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 14px rgba(0,0,0,0.08); box-sizing: border-box;">
+                        
+                        <h2 style="text-align: center; color: #ff6b35; font-size: 28px; margin-bottom: 20px;">🎓 Ignited — Registration Successful!</h2>
+                        
+                        <p style="font-size: 16px; line-height: 1.6;">Hi <strong>{name}</strong>,</p>
+
+                        <p style="font-size: 16px; line-height: 1.6;">Congratulations! You're officially registered for <strong>Ignited — The Education Fair</strong>. Get ready for an exciting day filled with workshops, games, free goodies, and a chance to connect with top universities and mentors!</p>
+
+                        <div style="background-color: #fef3c7; padding: 12px 18px; border-left: 5px solid #facc15; border-radius: 8px; margin: 20px 0;">
+                            <p style="font-size: 16px; margin: 0;"><strong>Your Unique ID:</strong> <span style="background-color: #facc15; color: #111827; padding: 5px 10px; border-radius: 5px;">{new_uid}</span></p>
+                        </div>
+
+                        <p style="font-size: 16px; line-height: 1.6;">Keep this ID handy — you'll need it to enter the event and participate in activities.</p>
+
+                        <div style="text-align: center; margin: 30px 0;">
+                            <p style="font-size: 16px; margin-bottom: 10px;">📸 Scan your event QR code at the entry:</p>
+                            <img src="cid:{image_cid}" alt="QR Code" style="max-width: 100%; height: auto; border: 2px solid #ddd; border-radius: 10px;"/>
+                        </div>
+
+                        <p style="font-size: 16px;">We can't wait to meet you there! 🚀</p>
+
+                        <p style="font-size: 16px; margin-top: 30px;">Cheers,<br><strong>The Ignited Team</strong></p>
+
+                        </div>
+                    </body>
+                    </html>
+                    """
+
 
         msg.add_alternative(html_body, subtype='html')
 
