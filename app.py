@@ -72,9 +72,6 @@ for i in range(2, len(all_values) + 1):
         # Dynamically fetch column values using header names
         name = sheet.cell(i, header_map.get("Student Full Name")).value
         email = sheet.cell(i, header_map.get("Email Address")).value
-        phone_number = sheet.cell(i, header_map.get("Phone Number")).value
-        school_name = sheet.cell(i, header_map.get("School Name")).value
-        standard = sheet.cell(i, header_map.get("Standard")).value
 
         if not name or not name.strip():
             continue
@@ -84,7 +81,7 @@ for i in range(2, len(all_values) + 1):
             continue
 
         # QR code data
-        qr_data = f"UID: {new_uid} | Name: {name} | Email: {email} | Phone: {phone_number} | School: {school_name} | Standard: {standard}"
+        qr_data = f"UID: {new_uid} | Name: {name} | Email: {email}"
         qr = qrcode.make(qr_data)
         qr_filename = os.path.join(qr_code_dir, f"{new_uid}_qr.png")
         qr.save(qr_filename)
