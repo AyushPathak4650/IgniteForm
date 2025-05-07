@@ -88,7 +88,7 @@ for i in range(2, len(all_values) + 1):
         msg = EmailMessage()
         # College mmail
         msg['Reply-To'] = college_email
-        # msg['Bcc'] = college_email
+        msg['Bcc'] = college_email
         # Sender and recipient
         msg['Subject'] = "Ignited Event Registration Confirmation"
         msg['From'] = f"Ignited Event <{sender_login}>"
