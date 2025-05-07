@@ -42,11 +42,15 @@ drive_service = build('drive', 'v3', credentials=creds)
 # Open your Google Sheet
 sheet = client.open_by_url(google_sheet_url).sheet1
 
-# Define the Unique ID column (Column 10)
-unique_id_col = 10
-
 # Fetch all values
 all_values = sheet.get_all_values()
+
+# Fetch the header row to dynamically map column indices
+header_row = sheet.row_values(1)
+header_map = {header: index + 1 for index, header in enumerate(header_row)}
+
+# Define the Unique ID column dynamically
+unique_id_col = header_map.get("Unique ID")
 
 # Fetch all existing Unique IDs
 uid_col_values = sheet.col_values(unique_id_col)
@@ -65,8 +69,12 @@ for i in range(2, len(all_values) + 1):
         sheet.update_cell(i, unique_id_col, new_uid)
         print(f"✅ Unique ID {new_uid} added to row {i}")
 
-        name = sheet.cell(i, 2).value  # Name (Col 2)
-        email = sheet.cell(i, 9).value  # Email (Col 9)
+        # Dynamically fetch column values using header names
+        name = sheet.cell(i, header_map.get("Student Full Name")).value
+        email = sheet.cell(i, header_map.get("Email Address")).value
+        phone_number = sheet.cell(i, header_map.get("Phone Number")).value
+        school_name = sheet.cell(i, header_map.get("School Name")).value
+        standard = sheet.cell(i, header_map.get("Standard")).value
 
         if not name or not name.strip():
             continue
@@ -76,20 +84,15 @@ for i in range(2, len(all_values) + 1):
             continue
 
         # QR code data
-        qr_data = f"UID: {new_uid} | Name: {name} | Email: {email}"
+        qr_data = f"UID: {new_uid} | Name: {name} | Email: {email} | Phone: {phone_number} | School: {school_name} | Standard: {standard}"
         qr = qrcode.make(qr_data)
         qr_filename = os.path.join(qr_code_dir, f"{new_uid}_qr.png")
         qr.save(qr_filename)
 
-         
-        
-        
         # Create email message
         msg = EmailMessage()
-        # College mmail
         msg['Reply-To'] = college_email
         msg['Bcc'] = college_email
-        # Sender and recipient
         msg['Subject'] = "Ignited Event Registration Confirmation"
         msg['From'] = f"Ignited Event <{sender_login}>"
         msg['To'] = email
@@ -126,7 +129,6 @@ for i in range(2, len(all_values) + 1):
                     </body>
                     </html>
                     """
-
 
         msg.add_alternative(html_body, subtype='html')
 
