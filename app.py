@@ -60,18 +60,18 @@ current_max = max(existing_numbers) if existing_numbers else 0
 # Email regex for validation
 email_regex = r"[^@]+@[^@]+\.[^@]+"
 
-# Loop through responses, start from 2 (skip header)
-for i in range(2, len(all_values) + 1):
-    uid_value = sheet.cell(i, unique_id_col).value
+# Loop through responses, start from the second row (skip header)
+for i, row in enumerate(all_values[1:], start=2):
+    uid_value = row[unique_id_col - 1]  # Access Unique ID column using index
     if not uid_value:
         current_max += 1
         new_uid = f"IGN-{current_max:03}"
-        sheet.update_cell(i, unique_id_col, new_uid)
+        sheet.update_cell(i, unique_id_col, new_uid)  # Update Unique ID in the sheet
         print(f"✅ Unique ID {new_uid} added to row {i}")
 
-        # Dynamically fetch column values using header names
-        name = sheet.cell(i, header_map.get("Student Full Name")).value
-        email = sheet.cell(i, header_map.get("Email Address")).value
+        # Fetch name and email from row using header_map index
+        name = row[header_map.get("Student Full Name") - 1]
+        email = row[header_map.get("Email Address") - 1]
 
         if not name or not name.strip():
             continue
@@ -89,7 +89,6 @@ for i in range(2, len(all_values) + 1):
         # Create email message
         msg = EmailMessage()
         msg['Reply-To'] = college_email
-        msg['Bcc'] = college_email
         msg['Subject'] = "Ignited Event Registration Confirmation"
         msg['From'] = f"Ignited Event <{sender_login}>"
         msg['To'] = email
@@ -97,8 +96,8 @@ for i in range(2, len(all_values) + 1):
         image_cid = make_msgid(domain='ignitefare.tech')[1:-1]
 
         html_body = f"""
-                    <html>
-                    <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; padding: 15px; color: #333;">
+        <html>
+            <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; padding: 15px; color: #333;">
                         <div style="width: 100%; max-width: 620px; margin: auto; background-color: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 14px rgba(0,0,0,0.08); box-sizing: border-box;">
                         
                         <h2 style="text-align: center; color: #ff6b35; font-size: 28px; margin-bottom: 20px;">🎓 Ignited — Registration Successful!</h2>
@@ -109,13 +108,13 @@ for i in range(2, len(all_values) + 1):
 
                         <div style="background-color: #fef3c7; padding: 12px 18px; border-left: 5px solid #facc15; border-radius: 8px; margin: 20px 0;">
                             <p style="font-size: 16px; margin: 0;"><strong>Your Unique ID:</strong> <span style="background-color: #facc15; color: #111827; padding: 5px 10px; border-radius: 5px;">{new_uid}</span></p>
-                        </div>
+                </div>
 
                         <p style="font-size: 16px; line-height: 1.6;">Keep this ID handy — you'll need it to enter the event and participate in activities.</p>
 
                         <div style="text-align: center; margin: 30px 0;">
                             <p style="font-size: 16px; margin-bottom: 10px;">📸 Scan your event QR code at the entry:</p>
-                            <img src="cid:{image_cid}" alt="QR Code" style="max-width: 100%; height: auto; border: 2px solid #ddd; border-radius: 10px;"/>
+                <img src="cid:{image_cid}" alt="QR Code" style="max-width: 100%; height: auto; border: 2px solid #ddd; border-radius: 10px;"/>
                         </div>
 
                         <p style="font-size: 16px;">We can't wait to meet you there! 🚀</p>
@@ -123,9 +122,9 @@ for i in range(2, len(all_values) + 1):
                         <p style="font-size: 16px; margin-top: 30px;">Cheers,<br><strong>The Ignited Team</strong></p>
 
                         </div>
-                    </body>
-                    </html>
-                    """
+            </body>
+        </html>
+        """
 
         msg.add_alternative(html_body, subtype='html')
 
@@ -145,6 +144,10 @@ for i in range(2, len(all_values) + 1):
                 print(f"✅ Email sent successfully to {email}")
         except Exception as e:
             print(f"❌ Failed to send email to {email}: {e}")
+            
+            # Remove the Unique ID from the submission in case of an error
+            sheet.update_cell(i, unique_id_col, "")  # Clear the Unique ID cell
+            print(f"❌ Unique ID {new_uid} removed from row {i} due to email failure.")
 
         os.remove(qr_filename)
 
