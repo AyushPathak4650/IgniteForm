@@ -1,4 +1,4 @@
-# 🎓 Ignited Event Registration System 
+# 🎓 Event Registration System 
 
 An automated Python + Flask backend system to manage event registrations via Google Sheets — assigning unique participant IDs, generating QR codes, and sending confirmation emails with QR codes attached.  
 
@@ -8,7 +8,7 @@ An automated Python + Flask backend system to manage event registrations via Goo
 
 ```
 
-ignite-registration-system/  
+IgniteForm/  
 ├── .gitignore  
 ├── .env # Environment variables (excluded from git)  
 ├── .env.example # Example environment file  
@@ -55,7 +55,7 @@ cp .env.example .env
 
 ### 3️⃣ Google Service Account Credentials
 
-* Place your service account key JSON file (e.g. `igniteform-project-xxxxx.json`) in the project root.
+* Place your service account key JSON file (e.g. `project-xxxxx.json`) in the project root.
     
 * It must have access to your target Google Sheet and "Google Drive API" enabled.
     
@@ -123,7 +123,7 @@ See `requirements.txt` for all packages:
 
 ## 📄 Notes
 
-* `.env` and `igniteform-project-xxxxx.json` are **not committed to GitHub** (see `.gitignore`)
+* `.env` and `project-xxxxx.json` are **not committed to GitHub** (see `.gitignore`)
     
 * QR images are stored temporarily in `qr_codes/` and auto-deleted after email dispatch
     
