@@ -60,13 +60,13 @@ current_max = max(existing_numbers) if existing_numbers else 0
 # Email regex for validation
 email_regex = r"[^@]+@[^@]+\.[^@]+"
 
-# Loop through responses, start from the second row (skip header)
+# Iterate through all rows starting from the second row
 for i, row in enumerate(all_values[1:], start=2):
-    uid_value = row[unique_id_col - 1]  # Access Unique ID column using index
+    uid_value = row[unique_id_col - 1] 
     if not uid_value:
         current_max += 1
         new_uid = f"IGN-{current_max:03}"
-        sheet.update_cell(i, unique_id_col, new_uid)  # Update Unique ID in the sheet
+        sheet.update_cell(i, unique_id_col, new_uid)  
         print(f"✅ Unique ID {new_uid} added to row {i}")
 
         # Fetch name and email from row using header_map index
@@ -145,8 +145,8 @@ for i, row in enumerate(all_values[1:], start=2):
         except Exception as e:
             print(f"❌ Failed to send email to {email}: {e}")
             
-            # Remove the Unique ID from the submission in case of an error
-            sheet.update_cell(i, unique_id_col, "")  # Clear the Unique ID cell
+            # If email fails, remove the Unique ID from the sheet
+            sheet.update_cell(i, unique_id_col, "")  
             print(f"❌ Unique ID {new_uid} removed from row {i} due to email failure.")
 
         os.remove(qr_filename)

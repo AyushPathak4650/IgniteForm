@@ -28,7 +28,7 @@ def home():
 def show_logs():
     return "<br>".join(logs) or "No logs yet."
 
-# Route to trigger your script
+# Route to trigger script
 @app.route('/run-script', methods=['POST'])
 def run_script():
     try:

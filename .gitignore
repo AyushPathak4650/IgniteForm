@@ -1,5 +1,5 @@
 .venv/
-
-qr_codes/
 __pycache__/
+qr_codes/
 .env
+*.json
