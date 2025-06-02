@@ -100,11 +100,11 @@ for i, row in enumerate(all_values[1:], start=2):
             <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f0f4f8; padding: 15px; color: #333;">
                         <div style="width: 100%; max-width: 620px; margin: auto; background-color: #ffffff; padding: 20px; border-radius: 12px; box-shadow: 0 4px 14px rgba(0,0,0,0.08); box-sizing: border-box;">
                         
-                        <h2 style="text-align: center; color: #ff6b35; font-size: 28px; margin-bottom: 20px;">🎓 Ignited — Registration Successful!</h2>
+                        <h2 style="text-align: center; color: #ff6b35; font-size: 28px; margin-bottom: 20px;">🎓 Event Registration Successful!</h2>
                         
                         <p style="font-size: 16px; line-height: 1.6;">Hi <strong>{name}</strong>,</p>
 
-                        <p style="font-size: 16px; line-height: 1.6;">Congratulations! You're officially registered for <strong>Ignited — The Education Fair</strong>. Get ready for an exciting day filled with workshops, games, free goodies, and a chance to connect with top universities and mentors!</p>
+                        <p style="font-size: 16px; line-height: 1.6;">Congratulations! You're officially registered for <strong>The Fair</strong>. Get ready for an exciting day filled with workshops, games, free goodies, and a chance to connect with top universities and mentors!</p>
 
                         <div style="background-color: #fef3c7; padding: 12px 18px; border-left: 5px solid #facc15; border-radius: 8px; margin: 20px 0;">
                             <p style="font-size: 16px; margin: 0;"><strong>Your Unique ID:</strong> <span style="background-color: #facc15; color: #111827; padding: 5px 10px; border-radius: 5px;">{new_uid}</span></p>
@@ -119,7 +119,7 @@ for i, row in enumerate(all_values[1:], start=2):
 
                         <p style="font-size: 16px;">We can't wait to meet you there! 🚀</p>
 
-                        <p style="font-size: 16px; margin-top: 30px;">Cheers,<br><strong>The Ignited Team</strong></p>
+                        <p style="font-size: 16px; margin-top: 30px;">Cheers,<br><strong>The Event Team</strong></p>
 
                         </div>
             </body>
