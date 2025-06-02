@@ -17,6 +17,7 @@ ignite-registration-system/
 ├── server.py # Flask server to trigger and view logs  
 ├── requirements.txt # Python dependencies  
 ├── qr_codes/ # Temp QR images (auto-deleted; ignored in git)  
+├── LICENSE # Project license  
 └── README.md # This file
 
 ```
